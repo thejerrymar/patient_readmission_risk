@@ -1,0 +1,23 @@
+{{config(
+    materialized='table',
+    schema='gold'
+)}}
+
+SELECT
+    patient_id,
+    patient_age,
+    years_of_education,
+    poverty_category,
+    is_white,
+    is_black,
+    is_asian,
+    is_american_indian,
+    is_multiple_races,
+    is_male,
+    is_married,
+    is_divorced,
+    is_widowed,
+    is_never_married,
+    is_living_with_partner
+FROM 
+    {{ref('stg_h243_patient_info')}}

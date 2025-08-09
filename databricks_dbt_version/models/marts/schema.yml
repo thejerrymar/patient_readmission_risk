@@ -1,0 +1,72 @@
+version: 2
+
+models:
+  - name: dim_h239d_inpatient_checkin
+    description: "Dimension table that combines checkindates together into 'YYYY-MM' format"
+    columns:
+      - name: patient_id 
+        description: "Unique patient ID (from DUPERSID)"
+        tests:
+          - not_null 
+          - relationships:
+              to: ref('dim_h243_patient_info')
+              field: patient_id
+      - name: checkin_eventid 
+        description: "Check-in event identifier"
+        tests:
+          - unique
+      - name: checkin_month
+        description: "Month of checkin"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0,1,2,3,4,5,6,7,8,9,10,11,12]
+              quote: false 
+      - name: checkout_month
+        description: "Month of checkout"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0,1,2,3,4,5,6,7,8,9,10,11,12]
+              quote: false 
+  - name: dim_h241_medical_conditions
+    description: dimension table for patient medical conditions 
+    columns:
+      - name: patient_id 
+        description: dupersid renamed to patient id 
+        tests:
+            - not_null 
+            - unique
+            - relationships:
+                to: ref('dim_h243_patient_info')
+                field: patient_id
+  - name: dim_h243_patient_insurance
+    description: dimension table for patient insurance coverage info
+    columns:
+      - name: patient_id 
+        description: dupersid renamed to patient id 
+        tests:
+            - not_null 
+            - unique
+            - relationships:
+                to: ref('dim_h243_patient_info')
+                field: patient_id 
+  - name: dim_h243_patient_info
+    description: dimension table for patient info (age, sex, date of birth, etc..)
+    columns:
+      - name: patient_id 
+        description: dupersid renamed to patient id 
+        tests:
+            - not_null 
+            - unique
+  - name: fact_patient_readmissions
+    description: fact table with patient info, insurance info, medical conditions, and readmission flag
+    columns:
+      - name: patient_id 
+        description: dupersid renamed to patient id 
+        tests:
+            - not_null 
+            - unique
+            - relationships:
+                to: ref('dim_h243_patient_info')
+                field: patient_id

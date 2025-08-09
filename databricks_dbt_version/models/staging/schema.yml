@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: stg_h239d_inpatient_checkin
+    description: "Staging table that inpatient check ins"
+    columns:
+      - name: patient_id 
+        description: "Unique patient ID (from DUPERSID)"
+        tests:
+          - not_null 
+      - name: checkin_eventid 
+        description: "Check-in event identifier"
+        tests:
+          - unique
+      - name: checkin_month
+        description: "Month of checkin"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0,1,2,3,4,5,6,7,8,9,10,11,12]
+              quote: false 
+      - name: checkout_month
+        description: "Month of checkout"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0,1,2,3,4,5,6,7,8,9,10,11,12]
+              quote: false 
+  - name: stg_h241_medical_conditions
+    description: list of medical conditions for each patient 
+    columns: 
+      - name: patient_id 
+        description: "Unique patient ID (from DUPERSID)"
+        tests:
+          - not_null
+          - unique
+  - name: stg_h243_patient_info
+    description: list of patient information
+    columns: 
+      - name: patient_id 
+        description: "Unique patient ID (from DUPERSID)"
+        tests:
+          - not_null
+          - unique    
+  - name: stg_h243_patient_insurance
+    description: list of patient insurance information
+    columns: 
+      - name: patient_id 
+        description: "Unique patient ID (from DUPERSID)"
+        tests:
+          - not_null
+          - unique  
+
+
+
+

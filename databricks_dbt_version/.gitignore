@@ -1,0 +1,10 @@
+
+target/
+dbt_packages/
+logs/
+profiles.yml
+.user.yml
+.env
+.DS_Store
+Thumbs.db
+.vscode/
