@@ -6,11 +6,11 @@
 WITH raw AS(
   SELECT *
   FROM 
-    {{source('bronze','raw_h241_medical_conditions_ccsr')}}
+    {{source('silver','raw_cleaned_h241_medical_conditions_ccsr')}}
 )
 
 SELECT 
-    dupersid AS patient_id,
+    DUPERSID AS patient_id,
     total_condition_count,
     hashypertension,
     hashypothyroidism,

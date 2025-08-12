@@ -1,31 +1,31 @@
 {{config(
-  materialized='view',
-  schema='silver'
+    materialized='view',
+    schema='silver'
 )}}
 
 SELECT
-    dupersid as patient_id,
-    age22x as patient_age,
-    perwt22f as person_weight_estimate,
-    dobmm as date_of_birth_month,
-    dobyy as date_of_birth_year,
-    educyr as years_of_education,
-    region22 as country_region,
-    empst53 as employment_status,
-    povcat22 as poverty_category,
-    CASE WHEN iswhite IS TRUE THEN 1 ELSE 0 END AS is_white,
-    CASE WHEN isblack IS TRUE THEN 1 ELSE 0 END AS is_black,
-    CASE WHEN isamericanindian IS TRUE THEN 1 ELSE 0 END AS is_american_indian,
-    CASE WHEN isasian IS TRUE THEN 1 ELSE 0 END AS is_asian,
-    CASE WHEN ismultipleraces IS TRUE THEN 1 ELSE 0 END AS is_multiple_races,
-    CASE WHEN ismale IS TRUE THEN 1 ELSE 0 END AS is_male,
-    CASE WHEN unknownmarriageinfo IS TRUE THEN 1 ELSE 0 END AS unknown_marriage_info,
-    CASE WHEN refusedmarriageinfo IS TRUE THEN 1 ELSE 0 END AS refused_marriage_info,
-    CASE WHEN ismarried IS TRUE THEN 1 ELSE 0 END AS is_married,
-    CASE WHEN iswidowed IS TRUE THEN 1 ELSE 0 END AS is_widowed,
-    CASE WHEN isdivorced IS TRUE THEN 1 ELSE 0 END AS is_divorced,
-    CASE WHEN isseparated IS TRUE THEN 1 ELSE 0 END AS is_separated,
-    CASE WHEN nevermarried IS TRUE THEN 1 ELSE 0 END AS is_never_married,
-    CASE WHEN livingwithpartner IS TRUE THEN 1 ELSE 0 END AS is_living_with_partner
+    DUPERSID as patient_id,
+    AGE22X as patient_age,
+    PERWT22F as person_weight_estimate,
+    DOBMM as date_of_birth_month,
+    DOBYY as date_of_birth_year,
+    EDUCYR as years_of_education,
+    REGION22 as country_region,
+    EMPST53 as employment_status,
+    POVCAT22 as poverty_category,
+    iswhite as is_white,
+    isblack as is_black,
+    isamericanindian as is_american_indian,
+    isasian as is_asian,
+    ismultipleraces as is_multiple_races,
+    ismale as is_male,
+    unknownmarriageinfo as unknown_marriage_info,
+    refusedmarriageinfo as refused_marriage_info,
+    ismarried as is_married,
+    iswidowed as is_widowed,
+    isdivorced as is_divorced,
+    isseparated as is_separated,
+    nevermarried as is_never_married,
+    livingwithpartner as is_living_with_partner
 FROM 
-    {{source('bronze','raw_h243_patient_info')}}
+    {{source('silver','raw_cleaned_h243_patient_info')}}

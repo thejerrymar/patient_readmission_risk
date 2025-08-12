@@ -2,33 +2,33 @@ version: 2
 
 sources:
   - name: bronze
-    description: bronze layer raw data 
-    database: workspace 
+    description: bronze layer raw data  
+    database: healthcare 
     schema: bronze 
     tables: 
-      - name: raw_h239d_inpatient_info
+      - name: raw_h239d_inpatient
         description: MEPS raw inpatient info 
         tests:
+          - not_null:
+              column_name: DUPERSID
+          - unique:
+              column_name: EVNTIDX 
+  - name: silver 
+    description: silver layer cleaned raw data 
+    database: healthcare 
+    schema: silver 
+    tables:
+      - name: raw_cleaned_h241_medical_conditions_ccsr
+        description: lightly cleaned MEPS medical conditions info for each patient 
+        tests:
           - not_null: 
-              column_name: dupersid 
-          - unique: 
-              column_name: evntidx 
-      - name: raw_h241_medical_conditions_ccsr
-        description: MEPS raw medical conditions for each patient
+              column_name: DUPERSID
+      - name: raw_cleaned_h243_patient_info
+        description: lightly cleaned MEPS patient information 
         tests:
           - not_null:
-              column_name: dupersid
-      - name: raw_h243_patient_insurance_info
-        description: Patient insurance information 
-        tests:
-          - not_null:
-              column_name: dupersid
-          - unique: 
-              column_name: dupersid 
-      - name: raw_h243_patient_info
-        description: Patient general info (age, sex, race, etc...)
-        tests:
-          - not_null:
-              column_name: dupersid
-          - unique: 
-              column_name: dupersid             
+              column_name: DUPERSID 
+          - unique:
+              column_name: DUPERSID 
+
+

@@ -6,22 +6,22 @@
 WITH raw AS (
     SELECT *
     FROM 
-        {{source('bronze','raw_h239d_inpatient_info')}}
+        {{source('bronze','raw_h239d_inpatient')}}
 )
 
 SELECT
-    dupersid as patient_id,
-    evntidx as checkin_eventid,
-    ipbegyr as checkin_year,
+    DUPERSID as patient_id,
+    EVNTIDX as checkin_eventid,
+    IPBEGYR as checkin_year,
     CASE 
-        WHEN ipbegmm BETWEEN 1 AND 12 THEN ipbegmm
+        WHEN IPBEGMM BETWEEN 1 AND 12 THEN IPBEGMM
         ELSE 0
     END AS checkin_month,
-    ipendyr as checkout_year,
+    IPENDYR as checkout_year,
     CASE 
-        WHEN ipendmm BETWEEN 1 AND 12 THEN ipendmm
+        WHEN IPENDMM BETWEEN 1 AND 12 THEN IPENDMM
         ELSE 0
     END AS checkout_month,
-    numnighx as total_nights_stayed
+    NUMNIGHX as total_nights_stayed
 FROM
     raw
