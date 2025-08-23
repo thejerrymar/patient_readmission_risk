@@ -1,5 +1,5 @@
 # patient_readmission_risk
-a healthcare machine learning project that builds model using MEPS data to predict whether a patient will be readmitted or not 
+a healthcare machine learning project based in Databricks that builds model using MEPS data to predict whether a patient will be readmitted or not 
 
 Software Tools Used:
 Databricks
